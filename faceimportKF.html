@@ -321,8 +321,8 @@
                     morphTargetArr[i][morphTargetName[i]['eyeSquint_R']] = 0;
                 }
                 var lipcrnrdiff = (lipcorner_l+lipcorner_r) - (lipcrnL+lipcrnR);
-                if(lipcrnrdiff > 0 && lipcrnrdiff < 0.02)
-                    morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = lipcrnrdiff * 40;
+                if(lipcrnrdiff > 0 && lipcrnrdiff < 0.015)
+                    morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = lipcrnrdiff * 50;
                 else
                     morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = 0;
             }
@@ -335,6 +335,7 @@
                 morphTargetArr[i][morphTargetName[i]['tongue_jawOpen']] = 0;
                 morphTargetArr[i][morphTargetName[i]['eyeSquint_L']] = 0;
                 morphTargetArr[i][morphTargetName[i]['eyeSquint_R']] = 0;
+                morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = 0;
             }
           }
           else
