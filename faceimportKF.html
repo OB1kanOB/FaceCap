@@ -321,8 +321,8 @@
                     morphTargetArr[i][morphTargetName[i]['eyeSquint_R']] = 0;
                 }
                 var lipcrnrdiff = (lipcorner_l+lipcorner_r) - (lipcrnL+lipcrnR);
-                if(lipcrnrdiff > 0 && lipcrnrdiff < 0.01)
-                    morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = lipcrnrdiff * 100;
+                if(lipcrnrdiff > 0 && lipcrnrdiff < 0.02)
+                    morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = lipcrnrdiff * 40;
                 else
                     morphTargetArr[i][morphTargetName[i]['mouthFunnel']] = 0;
             }
