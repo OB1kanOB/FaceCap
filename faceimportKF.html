@@ -84,6 +84,7 @@
             var morphTargetArr = [];
             var eyebr_iris_l, eyebr_iris_r;
             var lipcorner_l, lipcorner_r;
+            var eyel_t, eyel_b, eyer_t, eyer_b;
 
             //const {KalmanFilter} = require('kalman-filter');
             var {KalmanFilter} = kalmanFilter;
@@ -101,6 +102,11 @@
             const kf14 = new KalmanFilter({observation: 3});
             const kf52 = new KalmanFilter({observation: 3});
             const kf287 = new KalmanFilter({observation: 3});
+
+            const kf145 = new KalmanFilter({observation: 3});
+            //const kf159 = new KalmanFilter({observation: 3});
+            const kf374 = new KalmanFilter({observation: 3});
+            //const kf386 = new KalmanFilter({observation: 3});
 
             function applyKF(obs, filter)
             {
@@ -259,15 +265,17 @@
           var mrk223 = applyKF(landmarks[223], kf223);
           var mrk386 = applyKF(landmarks[386], kf386);
           var mrk443 = applyKF(landmarks[443], kf443);
-          var eyebrl = Math.abs(mrk386.y - mrk443.y);
-          var eyebrr = Math.abs(mrk159.y - mrk223.y);
+          //var eyebrl = Math.abs(mrk386.y - mrk443.y);
+          //var eyebrr = Math.abs(mrk159.y - mrk223.y);
+          var eyebrl = Math.abs(mrk6KF.y - mrk443.y);
+          var eyebrr = Math.abs(mrk6KF.y - mrk223.y);
           if(!eyebr_iris_l)
           {
             eyebr_iris_l = eyebrl;
             eyebr_iris_r = eyebrr;
           }
 
-          if(Math.abs(eyebr_iris_l - eyebrl) > 0.02)
+          if(Math.abs(eyebr_iris_l - eyebrl) > 0.01)
           {
             for(var i = 0; i<6; i++)
             {
@@ -280,7 +288,7 @@
                 morphTargetArr[i][morphTargetName[i]['browOuterUp_L']] = 0;
             }
           }
-          if(Math.abs(eyebr_iris_r - eyebrr) > 0.012)
+          if(Math.abs(eyebr_iris_r - eyebrr) > 0.01)
           {
             for(var i = 0; i<6; i++)
             {
@@ -293,6 +301,39 @@
                 morphTargetArr[i][morphTargetName[i]['browOuterUp_R']] = 0;
             }
           }
+
+          //var mrk159 = applyKF(landmarks[159], kf159);
+          var mrk145 = applyKF(landmarks[145], kf145);
+          //var mrk386 = applyKF(landmarks[386], kf386);
+          var mrk374 = applyKF(landmarks[374], kf374);
+
+          if(Math.abs(mrk145.y - mrk159.y) < 0.015)
+          {
+            for(var i = 0; i<6; i++)
+            {
+                morphTargetArr[i][morphTargetName[i]['eyeBlinking_Right']] = 1;
+            }
+          }
+          else{
+            for(var i = 0; i<6; i++)
+            {
+                morphTargetArr[i][morphTargetName[i]['eyeBlinking_Right']] = 0;
+            }
+          }
+          if(Math.abs(mrk374.y - mrk386.y) < 0.015)
+          {
+            for(var i = 0; i<6; i++)
+            {
+                morphTargetArr[i][morphTargetName[i]['eyeBlinking_Left']] = 1;
+            }
+          }
+          else{
+            for(var i = 0; i<6; i++)
+            {
+                morphTargetArr[i][morphTargetName[i]['eyeBlinking_Left']] = 0;
+            }
+          }
+
 
           var mrk13 = applyKF(landmarks[13],kf13);
           var mrk14 = applyKF(landmarks[14],kf14);
